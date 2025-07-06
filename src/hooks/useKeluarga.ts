@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react"
-import { getKeluargaByUserId } from "@/server/keluarga"
+import { useState, useEffect } from 'react'
+import { db, collection, query, onSnapshot } from "@/lib/firebase/client"
 import { Keluarga } from "@/types/keluarga"
+import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
-export function useKeluarga(userId: string) {
-    const [keluarga, setKeluarga] = useState<Keluarga | null>(null)
-    const [loading, setLoading] = useState(true)
+export function useKeluarga() {
+    const [keluargaList, setKeluargaList] = useState<Keluarga[]>([])
     const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
-        const fetchKeluarga = async () => {
-            try {
-                setLoading(true)
-                const data = await getKeluargaByUserId(userId)
-                setKeluarga(data)
-            } catch (err) {
-                setError(err as Error)
-            } finally {
-                setLoading(false)
-            }
-        }
+        const keluargaRef = collection(db, 'keluarga')
+        const q = query(keluargaRef)
 
-        if (userId) {
-            fetchKeluarga()
-        }
-    }, [userId])
+        const unsubscribe = onSnapshot(
+            q,
+            (snapshot: QuerySnapshot<DocumentData>) => {
+                const keluargaList = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                    createdAt: doc.data().createdAt?.toDate(),
+                    updatedAt: doc.data().updatedAt?.toDate()
+                } as Keluarga))
+                setKeluargaList(keluargaList)
+            },
+            (err) => setError(err)
+        )
+        return () => unsubscribe()
+    }, [])
 
-    return { keluarga, loading, error }
+    return { keluargaList, error }
 }

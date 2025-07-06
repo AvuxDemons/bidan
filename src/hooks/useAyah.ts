@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react"
-import { getAyahByKeluargaId } from "@/server/ayah"
-import { Ayah } from "@/types/keluarga"
+import { useState, useEffect } from 'react'
+import { db, collection, query, where, limit, onSnapshot } from "@/lib/firebase/client"
+import { Ayah } from "@/types/ayah"
+import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
-export function useAyah(keluargaId: string | undefined) {
+export function useAyah(keluargaId?: string) {
     const [ayah, setAyah] = useState<Ayah | null>(null)
-    const [loading, setLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
-        const fetchAyah = async () => {
-            try {
-                setLoading(true)
-                if (keluargaId) {
-                    const data = await getAyahByKeluargaId(keluargaId)
-                    setAyah(data)
-                }
-            } catch (err) {
-                setError(err as Error)
-            } finally {
-                setLoading(false)
-            }
-        }
+        if (!keluargaId) return
 
-        fetchAyah()
+        const ayahRef = collection(db, 'ayah')
+        const q = query(ayahRef, where('keluargaId', '==', keluargaId), limit(1))
+
+        const unsubscribe = onSnapshot(
+            q,
+            (snapshot: QuerySnapshot<DocumentData>) => {
+                const ayahData = snapshot.empty ? null : {
+                    id: snapshot.docs[0].id,
+                    ...snapshot.docs[0].data(),
+                    createdAt: snapshot.docs[0].data().createdAt?.toDate(),
+                    updatedAt: snapshot.docs[0].data().updatedAt?.toDate()
+                } as Ayah
+                setAyah(ayahData)
+            },
+            (err) => setError(err)
+        )
+
+        return () => unsubscribe()
     }, [keluargaId])
 
-    return { ayah, loading, error }
+    return { ayah, error }
 }

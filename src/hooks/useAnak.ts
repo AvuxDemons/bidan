@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react"
-import { getAnakByKeluargaId } from "@/server/anak"
-import { Anak } from "@/types/keluarga"
+import { useState, useEffect } from 'react'
+import { db, collection, query, where, onSnapshot } from "@/lib/firebase/client"
+import { Anak } from "@/types/anak"
+import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
-export function useAnak(keluargaId: string | undefined) {
+export function useAnak(keluargaId?: string) {
     const [anakList, setAnakList] = useState<Anak[]>([])
-    const [loading, setLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
-        const fetchAnak = async () => {
-            try {
-                setLoading(true)
-                if (keluargaId) {
-                    const data = await getAnakByKeluargaId(keluargaId)
-                    setAnakList(data)
-                }
-            } catch (err) {
-                setError(err as Error)
-            } finally {
-                setLoading(false)
-            }
-        }
+        if (!keluargaId) return
 
-        fetchAnak()
+        const anakRef = collection(db, 'anak')
+        const q = query(anakRef, where('keluargaId', '==', keluargaId))
+
+        const unsubscribe = onSnapshot(
+            q,
+            (snapshot: QuerySnapshot<DocumentData>) => {
+                const anakList = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                    createdAt: doc.data().createdAt?.toDate(),
+                    updatedAt: doc.data().updatedAt?.toDate()
+                }) as Anak)
+                setAnakList(anakList)
+            },
+            (err) => setError(err)
+        )
+
+        return () => unsubscribe()
     }, [keluargaId])
 
-    return { anakList, loading, error }
+    return { anakList, error }
 }

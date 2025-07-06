@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import { FirestoreAdapter } from "@auth/firebase-adapter"
-import { firestore } from "./firestore"
+import { firestoreAuth } from "./firebase/server"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: FirestoreAdapter(firestore),
+  adapter: FirestoreAdapter(firestoreAuth),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -19,8 +19,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     })
   ],
   pages: {
-    signIn: "/login",
-    error: "/login"
+    signIn: "/auth/login",
+    error: "/auth/error"
   },
   secret: process.env.NEXTAUTH_SECRET ?? '',
 })
