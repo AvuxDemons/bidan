@@ -2,7 +2,6 @@
 
 import admin from "firebase-admin"
 import { firestore } from "@/lib/firebase/server"
-import { Bunda } from "@/types/bunda"
 
 export async function getBunda(keluargaId: string) {
     const bundaRef = firestore.collection('bunda')

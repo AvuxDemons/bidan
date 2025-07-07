@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { db, collection, query, where, limit, onSnapshot } from "@/lib/firebase/client"
-import { Bunda } from "@/types/bunda"
 import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
 export function useBunda(keluargaId?: string) {

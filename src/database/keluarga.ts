@@ -2,7 +2,6 @@
 
 import admin from "firebase-admin"
 import { firestore } from "@/lib/firebase/server"
-import { Keluarga } from "@/types/keluarga"
 
 export async function getKeluargaList(userId?: string) {
     const keluargaRef = firestore.collection('keluarga')

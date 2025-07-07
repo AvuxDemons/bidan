@@ -2,7 +2,6 @@
 
 import admin from "firebase-admin"
 import { firestore } from "@/lib/firebase/server"
-import { Ayah } from "@/types/ayah"
 
 export async function getAyah(keluargaId: string) {
     const ayahRef = firestore.collection('ayah')

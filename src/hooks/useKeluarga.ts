@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { db, collection, query, onSnapshot } from "@/lib/firebase/client"
-import { Keluarga } from "@/types/keluarga"
 import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
 export function useKeluarga() {

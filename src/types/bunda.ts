@@ -1,10 +1,4 @@
-export interface Bunda {
-    id: string
-    nama: string
-    tanggalLahir: Date
-    pekerjaan: string
-    alamat: string
-    keluargaId: string
-    createdAt?: Date
-    updatedAt?: Date
+interface Bunda extends OrangTua {
+    bpjs?: string
+    nama_ibu_kandung?: string
 }

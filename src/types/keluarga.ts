@@ -1,9 +1,3 @@
-export interface Keluarga {
-    id: string
+interface Keluarga extends DefaultData {
     no_kk: string
-    ayahId: string
-    bundaId: string
-    anakIds: string[]
-    createdAt: Date
-    updatedAt: Date
 }

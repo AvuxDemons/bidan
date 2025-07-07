@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { db, collection, query, where, onSnapshot } from "@/lib/firebase/client"
-import { Anak } from "@/types/anak"
 import { QuerySnapshot, DocumentData } from "firebase/firestore"
 
 export function useAnak(keluargaId?: string) {

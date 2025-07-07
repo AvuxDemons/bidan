@@ -5,7 +5,6 @@ import {
   updateKeluarga,
   deleteKeluarga,
 } from "@/database/keluarga";
-import { Keluarga } from "@/types/keluarga";
 import { Button, Modal, Input, Alert, Card } from "@heroui/react";
 import { useKeluarga } from "@/hooks/useKeluarga";
 
@@ -86,6 +85,7 @@ export default function KeluargaAdminPage() {
           <thead>
             <tr>
               <th className="text-left p-2">Nama Keluarga</th>
+              <th className="text-left p-2">Updated At</th>
               <th className="text-left p-2">Created At</th>
               <th className="text-left p-2">Actions</th>
             </tr>
@@ -94,6 +94,7 @@ export default function KeluargaAdminPage() {
             {keluargaList.map((keluarga: Keluarga) => (
               <tr key={keluarga.id} className="border-t">
                 <td className="p-2">{keluarga.no_kk}</td>
+                <td className="p-2">{keluarga.updatedAt?.toLocaleString()}</td>
                 <td className="p-2">{keluarga.createdAt?.toLocaleString()}</td>
                 <td className="p-2">
                   <div className="flex gap-2">

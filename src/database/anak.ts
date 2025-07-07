@@ -2,7 +2,6 @@
 
 import admin from "firebase-admin"
 import { firestore } from "@/lib/firebase/server"
-import { Anak } from "@/types/anak"
 
 export async function getAnakList(keluargaId: string) {
     const anakRef = firestore.collection('anak')
