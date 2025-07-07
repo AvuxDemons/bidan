@@ -1,32 +1,41 @@
 "use client";
-import React from "react";
+
 import {
   createKeluarga,
   updateKeluarga,
   deleteKeluarga,
 } from "@/database/keluarga";
-import { Button, Modal, Input, Alert, Card } from "@heroui/react";
+import {
+  Button,
+  Modal,
+  Input,
+  Alert,
+  Card,
+  ModalBody,
+  useDisclosure,
+  ModalContent,
+  ModalHeader,
+} from "@heroui/react";
 import { useKeluarga } from "@/hooks/useKeluarga";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function KeluargaAdminPage() {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [currentKeluarga, setCurrentKeluarga] = React.useState<Keluarga | null>(
-    null
-  );
-  const [formData, setFormData] = React.useState<Partial<Keluarga>>({
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [currentKeluarga, setCurrentKeluarga] = useState<Keluarga | null>(null);
+  const [formData, setFormData] = useState<Partial<Keluarga>>({
     no_kk: "",
   });
 
   const { keluargaList, error: fetchError } = useKeluarga();
-  const [loading, setLoading] = React.useState(false);
-  const [mutationError, setMutationError] = React.useState<Error | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [mutationError, setMutationError] = useState<Error | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev: Partial<Keluarga>) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -35,7 +44,7 @@ export default function KeluargaAdminPage() {
       } else {
         await createKeluarga(formData);
       }
-      setIsModalOpen(false);
+      onOpenChange();
       setFormData({ no_kk: "" });
       setMutationError(null);
     } catch (err) {
@@ -50,7 +59,7 @@ export default function KeluargaAdminPage() {
     setFormData({
       no_kk: keluarga.no_kk,
     });
-    setIsModalOpen(true);
+    onOpen();
   };
 
   const handleDelete = async (id: string) => {
@@ -71,7 +80,7 @@ export default function KeluargaAdminPage() {
     <Card>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Keluarga Management</h1>
-        <Button onClick={() => setIsModalOpen(true)}>Add New Keluarga</Button>
+        <Button onPress={onOpen}>Add New Keluarga</Button>
       </div>
 
       {(fetchError || mutationError) && (
@@ -98,7 +107,7 @@ export default function KeluargaAdminPage() {
                 <td className="p-2">{keluarga.createdAt?.toLocaleString()}</td>
                 <td className="p-2">
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={() => handleEdit(keluarga)}>
+                    <Button size="sm" onPress={() => handleEdit(keluarga)}>
                       Edit
                     </Button>
                     <Button
@@ -117,30 +126,37 @@ export default function KeluargaAdminPage() {
         </table>
       </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title={currentKeluarga ? "Edit Keluarga" : "Add New Keluarga"}
-      >
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <Input
-              label="No Kartu Keluarga"
-              name="no_kk"
-              value={formData.no_kk || ""}
-              onChange={handleInputChange}
-              required
-            />
-            <div className="flex justify-end gap-2">
-              <Button variant="light" onClick={() => setIsModalOpen(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">
-                {currentKeluarga ? "Update" : "Create"}
-              </Button>
-            </div>
-          </div>
-        </form>
+      <Modal isOpen={isOpen} onClose={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                {currentKeluarga?.id ? "Edit Keluarga" : "Add New Keluarga"}
+              </ModalHeader>
+              <ModalBody>
+                <form onSubmit={handleSubmit}>
+                  <div className="space-y-4">
+                    <Input
+                      label="No Kartu Keluarga"
+                      name="no_kk"
+                      value={formData.no_kk || ""}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <div className="flex justify-end gap-2">
+                      <Button variant="light" onPress={onClose}>
+                        Cancel
+                      </Button>
+                      <Button type="submit">
+                        {currentKeluarga ? "Update" : "Create"}
+                      </Button>
+                    </div>
+                  </div>
+                </form>
+              </ModalBody>
+            </>
+          )}
+        </ModalContent>
       </Modal>
     </Card>
   );

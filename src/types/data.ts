@@ -8,7 +8,7 @@ interface AnggotaKeluarga extends DefaultData {
     nik: string
     nama_lengkap: string
     ttl: string
-    golongan_darah: string
+    golongan_darah: 'A' | 'B' | 'AB' | 'O' | null
 }
 
 interface OrangTua extends AnggotaKeluarga {
@@ -17,3 +17,14 @@ interface OrangTua extends AnggotaKeluarga {
     pekerjaan: string
     pendidikan_terakhir: string
 }
+
+const golongan_darah = ['A', 'B', 'AB', 'O'];
+const kelamin = [
+    {
+        value: 'L',
+        label: 'Laki-laki'
+    }, {
+        value: 'P',
+        label: 'Perempuan'
+    }
+];
