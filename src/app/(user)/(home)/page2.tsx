@@ -4,7 +4,7 @@ import { MdFamilyRestroom } from 'react-icons/md';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useKeluarga } from '@/hooks/useKeluarga';
-import { Button, Input } from '@/components/ui/HeroUI';
+import { Input } from '@/components/ui/HeroUI';
 
 const Page = () => {
   const [noKK, setNoKK] = useState('');
@@ -71,7 +71,6 @@ const Page = () => {
               pattern="[0-9]*"
               maxLength={16}
               placeholder="Contoh: 1234567890123456"
-              className="placeholder:text-gray-300 placeholder:font-normal"
               required
             />
 
@@ -85,12 +84,12 @@ const Page = () => {
             <div className="text-sm text-red-500 text-center">{fetchError.message}</div>
           )}
 
-          <Button
+          <button
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-medium transition active:scale-[0.98]"
           >
             Lanjutkan
-          </Button>
+          </button>
         </form>
       </div>
     </div>
