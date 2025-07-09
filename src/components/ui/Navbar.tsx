@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
       <NavbarContent justify="start">
         <NavbarBrand>
           <Image
-            src={"logo.png"}
+            src={"/logo.png"}
             alt="logo"
             width={45}
             height={45}

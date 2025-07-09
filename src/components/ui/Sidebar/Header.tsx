@@ -16,11 +16,11 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     <div {...rest}>
       <div className="px-6 py-8 flex flex-row gap-2">
         <Image
-          src={"logo.png"}
+          src={"/logo.png"}
           alt="logo"
           width={40}
           height={40}
-          className="rounded-xl"
+          className="rounded-lg"
         />
         {!collapse && (
           <div className="flex flex-col">
