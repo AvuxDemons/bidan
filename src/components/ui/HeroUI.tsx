@@ -90,6 +90,22 @@ const Input = extendVariants(HeroUIInput, {
   },
 });
 
+const InputError = ({ error }: { error: any[] }) => {
+  return error.length > 1 ? (
+    <div className="text-xs">
+      <ul className="list-disc pl-2.5">
+        {error.map((err, index) => (
+          <li key={index}>
+            <span>{err.message}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : (
+    error[0].message
+  );
+};
+
 const Select = extendVariants(HeroUISelect, {
   variants: {
     size: {
@@ -129,6 +145,7 @@ const Button = extendVariants(HeroUIButton, {
     color: {
       primary: "text-white",
       danger: "text-white",
+      success: "text-white",
     },
     variant: {
       bordered: "text-primary border-primary",
@@ -256,6 +273,7 @@ export {
   Modal,
   Table,
   Input,
+  InputError,
   NumberInput,
   Pagination,
   Select,

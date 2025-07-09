@@ -1,24 +1,19 @@
-import { useState } from "react";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
   NavbarContent,
-  Input,
   Image,
 } from "@heroui/react";
 import { Button } from "@/components/ui/HeroUI";
 import { UserDropdown } from "@/components/ui/User";
 import { useSession } from "next-auth/react";
-import { IoClose } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Theme from "@/components/ui/Theme";
-import { useTheme } from "next-themes";
+import Link from "next/link";
 // import EngageSpotNotification from "@/components/ui/Notification";
 
 const Navbar: React.FC = () => {
   const { data: session } = useSession();
-  const { theme } = useTheme();
   const router = useRouter();
 
   return (
@@ -29,7 +24,13 @@ const Navbar: React.FC = () => {
     >
       <NavbarContent justify="start">
         <NavbarBrand>
-          <Image src={"bidan_delima.png"} alt="logo" width={45} height={45} />
+          <Image
+            src={"logo.png"}
+            alt="logo"
+            width={45}
+            height={45}
+            className="rounded-lg"
+          />
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent
@@ -45,13 +46,11 @@ const Navbar: React.FC = () => {
         ) : (
           <>
             <Theme />
-            <Button
-              color="primary"
-              aria-label="Login"
-              onPress={() => router.push("/auth/login")}
-            >
-              Login
-            </Button>
+            <Link href="/auth/login">
+              <Button color="primary" aria-label="Login">
+                Login
+              </Button>
+            </Link>
           </>
         )}
       </NavbarContent>

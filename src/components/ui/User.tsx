@@ -19,6 +19,7 @@ import { MdWbSunny } from "react-icons/md";
 import { BsMoonStarsFill } from "react-icons/bs";
 import { IoBagHandle } from "react-icons/io5";
 import { useCallback, useEffect, useState } from "react";
+import { metadataConfig } from "@/app/config";
 
 export const UserDropdown = ({
   session,
@@ -165,7 +166,11 @@ export const UserDropdown = ({
           <DropdownItem
             key="help_and_feedback"
             startContent={<FaPhoneAlt />}
-            onPress={() => router.push("https://wa.me/081111111111111")}
+            onPress={() =>
+              router.push(
+                `https://wa.me/${metadataConfig.contact.whatsapp}?text=Halo admin, saya ingin bertanya tentang layanan ${metadataConfig.name}`
+              )
+            }
           >
             Help & Feedback
           </DropdownItem>

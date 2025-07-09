@@ -69,7 +69,11 @@ export const metadataConfig = {
         "bidan darurat",
         "bidan untuk persalinan mendadak"
     ],
-    icons: "/logo.jpeg",
+    contact: {
+        instagram: 'https://instagram.com/bidanlitasub',
+        whatsapp: '6289696920601'
+    },
+    icons: "/logo.png",
     background_color: '#fff',
     theme_color: '#fff',
     version: '1.0.0'

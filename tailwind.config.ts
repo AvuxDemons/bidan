@@ -29,18 +29,18 @@ const config: Config = {
                         "DEFAULT": "#d4d4d8"
                     },
                     "primary": {
-                        "50": "#ffeef2",
-                        "100": "#ffd7df",
-                        "200": "#ffc0cc",
-                        "300": "#ffa9b9",
-                        "400": "#ff91a7",
-                        "500": "#ff7a94",
-                        "600": "#d2657a",
-                        "700": "#a64f60",
-                        "800": "#793a46",
-                        "900": "#4d252c",
+                        "50": "#feebe5",
+                        "100": "#fed0c1",
+                        "200": "#fdb49d",
+                        "300": "#fc9978",
+                        "400": "#fb7d54",
+                        "500": "#fa6230",
+                        "600": "#ce5128",
+                        "700": "#a3401f",
+                        "800": "#772f17",
+                        "900": "#4b1d0e",
                         "foreground": "#000",
-                        "DEFAULT": "#ff7a94"
+                        "DEFAULT": "#fa6230"
                     },
                     "secondary": {
                         "50": "#eee4f8",
@@ -129,7 +129,7 @@ const config: Config = {
                         "DEFAULT": "#d4d4d8",
                         "foreground": "#000"
                     },
-                    "focus": "#ff7a94",
+                    "focus": "#fa6230",
                     "overlay": "#000000",
                     "divider": "#111111"
                 }
@@ -151,18 +151,18 @@ const config: Config = {
                         "DEFAULT": "#3f3f46"
                     },
                     "primary": {
-                        "50": "#4d252c",
-                        "100": "#793a46",
-                        "200": "#a64f60",
-                        "300": "#d2657a",
-                        "400": "#ff7a94",
-                        "500": "#ff91a7",
-                        "600": "#ffa9b9",
-                        "700": "#ffc0cc",
-                        "800": "#ffd7df",
-                        "900": "#ffeef2",
+                        "50": "#4b1d0e",
+                        "100": "#772f17",
+                        "200": "#a3401f",
+                        "300": "#ce5128",
+                        "400": "#fa6230",
+                        "500": "#fb7d54",
+                        "600": "#fc9978",
+                        "700": "#fdb49d",
+                        "800": "#fed0c1",
+                        "900": "#feebe5",
                         "foreground": "#000",
-                        "DEFAULT": "#ff7a94"
+                        "DEFAULT": "#fa6230"
                     },
                     "secondary": {
                         "50": "#240c3c",
@@ -251,7 +251,7 @@ const config: Config = {
                         "DEFAULT": "#52525b",
                         "foreground": "#fff"
                     },
-                    "focus": "#ff7a94",
+                    "focus": "#fa6230",
                     "overlay": "#ffffff",
                     "divider": "#ffffff"
                 }

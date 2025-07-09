@@ -24,6 +24,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
     })
   ],
+  callbacks: {
+    session: async ({ session, user }) => {
+      if (session.user) {
+        session.user.id = user.id
+      }
+      return session
+    }
+  },
   pages: {
     signIn: "/auth/login",
     error: "/auth/error"

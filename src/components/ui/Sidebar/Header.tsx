@@ -16,7 +16,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     <div {...rest}>
       <div className="px-6 py-8 flex flex-row gap-2">
         <Image
-          src={"/bidan_delima.png"}
+          src={"logo.png"}
           alt="logo"
           width={40}
           height={40}

@@ -30,7 +30,8 @@
     "react-leaflet": "^5.0.0",
     "react-pro-sidebar": "^1.1.0",
     "react-toastify": "^11.0.5",
-    "recharts": "^2.15.3"
+    "recharts": "^2.15.3",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
