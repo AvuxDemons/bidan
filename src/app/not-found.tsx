@@ -35,7 +35,7 @@ const NotFound = () => {
               </div>
             </div>
             <p className="text-[8rem] sm:text-[12rem] font-bold tracking-widest">
-              4&nbsp;&nbsp;4
+              4&nbsp;&nbsp; 4
             </p>
           </div>
           <div className="absolute flex flex-col items-center w-full md:bottom-[15%] bottom-[10%] translate-y-[100%]">

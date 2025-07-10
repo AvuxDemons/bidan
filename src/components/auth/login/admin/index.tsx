@@ -6,8 +6,8 @@ import { MdLock, MdPerson, MdVisibility, MdVisibilityOff, MdShield } from "react
 import { ImSpinner2 } from "react-icons/im";
 
 export default function AdminLoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("admin");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
