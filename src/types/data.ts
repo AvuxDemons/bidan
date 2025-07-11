@@ -1,25 +1,6 @@
-interface DefaultData {
-    id: string
-    createdAt: Date
-    updatedAt: Date
-}
-
-interface AnggotaKeluarga extends DefaultData {
-    nik: string
-    nama_lengkap: string
-    ttl: string
-    golongan_darah: 'A' | 'B' | 'AB' | 'O' | null
-}
-
-interface OrangTua extends AnggotaKeluarga {
-    agama: 'Islam' | 'Kristen' | 'Katolik' | 'Hindu' | 'Budha' | 'Konghucu'
-    no_telepon: string
-    pekerjaan: string
-    pendidikan_terakhir: string
-}
-
 const golongan_darah = ['A', 'B', 'AB', 'O'];
-const kelamin = [
+
+const gender = [
     {
         value: 'L',
         label: 'Laki-laki'
@@ -28,3 +9,56 @@ const kelamin = [
         label: 'Perempuan'
     }
 ];
+
+const service_category = [
+    {
+        value: 'ibu',
+        label: 'Ibu',
+        description: 'Layanan ibu'
+    },
+    {
+
+        value: 'anak',
+        label: 'Anak',
+        description: 'Layanan anak'
+    },
+    {
+        value: 'umum',
+        label: 'Umum',
+        description: 'Layanan umum'
+    },
+];
+
+const religion = [
+    {
+        value: 'islam',
+        label: 'Islam'
+    },
+    {
+        value: 'kristen',
+        label: 'Kristen'
+    },
+    {
+        value: 'katolik',
+        label: 'Katolik'
+    },
+    {
+        value: 'hindu',
+        label: 'Hindu'
+    },
+    {
+        value: 'budha',
+        label: 'Budha'
+    },
+    {
+        value: 'konghucu',
+        label: 'Konghucu'
+    }
+]
+
+export {
+    golongan_darah,
+    gender,
+    service_category,
+    religion
+}

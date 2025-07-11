@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Badge,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -9,16 +8,13 @@ import {
   Skeleton,
   User,
 } from "@heroui/react";
-import { FaHeart, FaUser } from "react-icons/fa6";
-import { TbLayoutDashboardFilled } from "react-icons/tb";
-import { FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaWhatsapp } from "react-icons/fa6";
+import { FaSignOutAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { MdWbSunny } from "react-icons/md";
+import { MdFamilyRestroom, MdWbSunny } from "react-icons/md";
 import { BsMoonStarsFill } from "react-icons/bs";
-import { IoBagHandle } from "react-icons/io5";
-import { useCallback, useEffect, useState } from "react";
 import { metadataConfig } from "@/app/config";
 
 export const UserDropdown = ({
@@ -40,7 +36,12 @@ export const UserDropdown = ({
   };
 
   return (
-    <Dropdown showArrow radius="sm" closeOnSelect={false}>
+    <Dropdown
+      showArrow
+      radius="sm"
+      placement="bottom-end"
+      closeOnSelect={false}
+    >
       <DropdownTrigger className="flex items-center justify-center">
         <div
           className={`flex justify-start items-center cursor-pointer hover:opacity-75 ${
@@ -125,22 +126,15 @@ export const UserDropdown = ({
               startContent={<FaUser />}
               onPress={() => router.push("/profile")}
             >
-              Profile
-            </DropdownItem>
-            {/* <DropdownItem
-              key="wishlist"
-              startContent={<FaHeart />}
-              onPress={() => router.push("/wishlist")}
-            >
-              Wishlist
+              Saya
             </DropdownItem>
             <DropdownItem
-              key="pesanan_saya"
-              startContent={<IoBagHandle />}
-              onPress={() => router.push("/order")}
+              key="family"
+              startContent={<MdFamilyRestroom />}
+              onPress={() => router.push("/keluarga")}
             >
-              Pesanan Saya
-            </DropdownItem> */}
+              Keluarga
+            </DropdownItem>
           </DropdownSection>
         }
         <DropdownSection
@@ -165,14 +159,14 @@ export const UserDropdown = ({
         <DropdownSection aria-label="Support">
           <DropdownItem
             key="help_and_feedback"
-            startContent={<FaPhoneAlt />}
+            startContent={<FaWhatsapp />}
             onPress={() =>
               router.push(
                 `https://wa.me/${metadataConfig.contact.whatsapp}?text=Halo admin, saya ingin bertanya tentang layanan ${metadataConfig.name}`
               )
             }
           >
-            Help & Feedback
+            Bantuan & Pertanyaan
           </DropdownItem>
           {session && (
             <DropdownItem

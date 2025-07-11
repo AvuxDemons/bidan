@@ -1,4 +1,3 @@
-
 "use client";
 
 import { MdFamilyRestroom } from "react-icons/md";
@@ -103,7 +102,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-[80vh]">
+    <div className="flex justify-center items-center min-h-[75vh] md:min-h-[80vh] py-8">
       <Section className="flex flex-col justify-center items-center gap-8 max-w-xl p-6 md:p-16">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-widest uppercase">
           Keluarga
@@ -163,7 +162,7 @@ const Page = () => {
                   setNoKK(value);
                   const validation = noKKSchema.safeParse(value);
                   if (!validation.success) {
-                    setErrors(validation.error.errors);
+                    setErrors(validation.error?.issues || []);
                     return;
                   }
                   setErrors([]);

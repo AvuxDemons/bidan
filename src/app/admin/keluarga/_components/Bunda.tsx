@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  createLayanan,
-  updateLayanan,
-  deleteLayanan,
-} from "@/database/layanan";
+import { createBunda, updateBunda, deleteBunda } from "@/database/bunda";
 import {
   TableBody,
   TableCell,
@@ -35,17 +31,16 @@ import { usePaginatedCollection } from "@/hooks/usePaginatedCollection";
 import TableTitle from "@/components/ui/Table/Title";
 import TableAction from "@/components/ui/Table/Action";
 
-const defaultFormData: Partial<Layanan> = {
-  nama: "",
-  jenis: "",
-  deskripsi: "",
+const defaultFormData: Partial<Bunda> = {
+  nik: "",
+  // add other fields if necessary
 };
 
-const Layanan = () => {
+const Bunda = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [currentLayanan, setCurrentLayanan] = useState<Layanan | null>(null);
+  const [currentBunda, setCurrentBunda] = useState<Bunda | null>(null);
   const [mutationError, setMutationError] = useState<Error | null>(null);
-  const [formData, setFormData] = useState<Partial<Layanan>>(defaultFormData);
+  const [formData, setFormData] = useState<Partial<Bunda>>(defaultFormData);
 
   const {
     loading,
@@ -61,48 +56,38 @@ const Layanan = () => {
     pageSize,
     setPageSize,
     sort,
-  } = usePaginatedCollection<Layanan>({
-    collectionPath: "layanan",
+  } = usePaginatedCollection<Bunda>({
+    collectionPath: "bunda",
   });
   const [debouncedSearch] = useDebounce(search, 500);
 
   useEffect(() => {
     if (debouncedSearch) {
-      filter((item: Layanan) =>
-        item.nama.includes(debouncedSearch.toLowerCase())
-      );
+      filter((item: Bunda) => item.nik.includes(debouncedSearch.toLowerCase()));
     } else {
       filter(() => true);
     }
   }, [debouncedSearch]);
 
   useEffect(() => {
-    if (currentLayanan) {
-      setFormData(currentLayanan);
+    if (currentBunda) {
+      setFormData(currentBunda);
     }
-  }, [currentLayanan]);
+  }, [currentBunda]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev: Partial<Layanan>) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setFormData((prev: Partial<Layanan>) => ({
-      ...prev,
-      jenis: value as "ibu" | "anak" | "umum",
-    }));
+    setFormData((prev: Partial<Bunda>) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
-      if (currentLayanan?.id) {
-        await updateLayanan(currentLayanan.id, formData);
+      if (currentBunda?.id) {
+        await updateBunda(currentBunda.id, formData);
       } else {
-        await createLayanan(formData);
+        await createBunda(formData);
       }
       onOpenChange();
       setFormData(defaultFormData);
@@ -114,15 +99,15 @@ const Layanan = () => {
     }
   };
 
-  const handleEdit = (layanan: Layanan) => {
-    setCurrentLayanan(layanan);
+  const handleEdit = (bunda: Bunda) => {
+    setCurrentBunda(bunda);
     onOpen();
   };
 
   const handleDelete = async (id: string) => {
     try {
       setLoading(true);
-      await deleteLayanan(id);
+      await deleteBunda(id);
       setMutationError(null);
     } catch (err) {
       setMutationError(err as Error);
@@ -135,7 +120,7 @@ const Layanan = () => {
     <div className="flex flex-col gap-4">
       <Section className="px-4 py-3 flex flex-col gap-4">
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-2">
-          <TableTitle title="Layanan" description="List Data Layanan" />
+          <TableTitle title="Bunda" description="List Data Bunda" />
           <div className="flex flex-row items-center gap-2">
             <Input
               type="text"
@@ -147,7 +132,7 @@ const Layanan = () => {
             <Button
               onPress={() => {
                 onOpen();
-                setCurrentLayanan(null);
+                setCurrentBunda(null);
               }}
               color="primary"
               startContent={<FaPlus />}
@@ -161,7 +146,7 @@ const Layanan = () => {
           <div className="flex flex-row justify-between items-center">
             <p className="text-xs">
               Total&nbsp;<span className="font-semibold">{totalData}</span>
-              &nbsp;Layanan
+              &nbsp;Bunda
             </p>
             <div className="flex items-center gap-2">
               <span className="text-xs">Showing</span>
@@ -185,9 +170,9 @@ const Layanan = () => {
             </div>
           </div>
 
-          <Table aria-label="Tabel Layanan" color="primary">
+          <Table aria-label="Tabel Bunda" color="primary">
             <TableHeader>
-              <TableColumn>Layanan</TableColumn>
+              <TableColumn>Bunda</TableColumn>
               <TableColumn className="flex justify-center items-center">
                 Action
               </TableColumn>
@@ -196,9 +181,9 @@ const Layanan = () => {
               items={paginated}
               loadingContent={<Spinner label="Loading..." />}
             >
-              {(item: Layanan) => (
+              {(item: Bunda) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.nama}</TableCell>
+                  <TableCell>{item.nik}</TableCell>
                   <TableCell className="flex flex-row justify-center items-center gap-2">
                     <TableAction
                       onUpdate={() => {
@@ -231,40 +216,23 @@ const Layanan = () => {
           {(onClose) => (
             <>
               <ModalHeader>
-                {currentLayanan ? "Update" : "Tambah"} Layanan
+                {currentBunda ? "Update" : "Tambah"} Bunda
               </ModalHeader>
               <ModalBody>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                   <Input
-                    label="Nama Layanan"
-                    name="nama"
-                    value={formData.nama || ""}
+                    label="No Kartu Bunda"
+                    name="no_kk"
+                    value={formData.nik || ""}
                     onChange={handleInputChange}
                     required
-                  />
-                  <Select
-                    label="Jenis Layanan"
-                    selectedKeys={[formData.jenis || ""]}
-                    onChange={(e) =>
-                      handleSelectChange(e as ChangeEvent<HTMLSelectElement>)
-                    }
-                  >
-                    <SelectItem key="ibu">Ibu</SelectItem>
-                    <SelectItem key="anak">Anak</SelectItem>
-                    <SelectItem key="umum">Umum</SelectItem>
-                  </Select>
-                  <Input
-                    label="Deskripsi"
-                    name="deskripsi"
-                    value={formData.deskripsi || ""}
-                    onChange={handleInputChange}
                   />
                   <div className="flex justify-end gap-2">
                     <Button variant="light" onPress={onClose}>
                       Cancel
                     </Button>
                     <Button type="submit">
-                      {currentLayanan ? "Update" : "Create"}
+                      {currentBunda ? "Update" : "Create"}
                     </Button>
                   </div>
                 </form>
@@ -277,4 +245,4 @@ const Layanan = () => {
   );
 };
 
-export default Layanan;
+export default Bunda;
